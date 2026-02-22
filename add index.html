@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>XAUUSD Pivot</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: system-ui;
+  background:#111;
+  color:#fff;
+  padding:20px;
+}
+input, button {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  font-size:16px;
+}
+button {
+  background:#00c853;
+  border:none;
+  border-radius:6px;
+}
+table {
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+td {
+  padding:6px;
+  border-bottom:1px solid #333;
+}
+.level { color:#00e5ff; }
+</style>
+</head>
+
+<body>
+
+<h2>📊 XAUUSD Pivot (Test)</h2>
+
+<input id="high" placeholder="High">
+<input id="low" placeholder="Low">
+<input id="close" placeholder="Close">
+
+<button onclick="calc()">คำนวณ Pivot</button>
+
+<table id="out"></table>
+
+<script>
+function calc() {
+  const H = +high.value;
+  const L = +low.value;
+  const C = +close.value;
+
+  const P  = (H + L + C) / 3;
+  const R1 = 2*P - L;
+  const S1 = 2*P - H;
+  const R2 = P + (H - L);
+  const S2 = P - (H - L);
+  const R3 = H + 2*(P - L);
+  const S3 = L - 2*(H - P);
+
+  const levels = [
+    ["R3", R3], ["R2", R2], ["R1", R1],
+    ["P", P],
+    ["S1", S1], ["S2", S2], ["S3", S3]
+  ];
+
+  out.innerHTML = levels.map(x => `
+    <tr>
+      <td class="level">${x[0]}</td>
+      <td>${x[1].toFixed(2)}</td>
+    </tr>
+  `).join("");
+}
+</script>
+
+</body>
+</html>
