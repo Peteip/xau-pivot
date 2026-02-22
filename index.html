@@ -1,49 +1,29 @@
-<script>
 function calc() {
-  const H = parseFloat(document.getElementById('high').value);
-  const L = parseFloat(document.getElementById('low').value);
-  const C = parseFloat(document.getElementById('close').value);
+  const H = parseFloat(document.getElementById("high").value);
+  const L = parseFloat(document.getElementById("low").value);
+  const C = parseFloat(document.getElementById("close").value);
 
   if (isNaN(H) || isNaN(L) || isNaN(C)) {
-    alert("กรุณาใส่ตัวเลขให้ครบทุกช่อง");
+    alert("กรอกตัวเลข High / Low / Close ให้ครบ และห้ามมี ,");
     return;
   }
 
   const P  = (H + L + C) / 3;
-  const R1 = 2 * P - L;
-  const S1 = 2 * P - H;
+  const R1 = 2*P - L;
+  const S1 = 2*P - H;
   const R2 = P + (H - L);
   const S2 = P - (H - L);
-  const R3 = H + 2 * (P - L);
-  const S3 = L - 2 * (H - P);
+  const R3 = H + 2*(P - L);
+  const S3 = L - 2*(H - P);
 
   const levels = [
-    ["R3", R3],
-    ["R2", R2],
-    ["R1", R1],
-    ["P",  P ],
-    ["S1", S1],
-    ["S2", S2],
-    ["S3", S3]
+    ["R3", R3], ["R2", R2], ["R1", R1],
+    ["P", P],
+    ["S1", S1], ["S2", S2], ["S3", S3]
   ];
 
-  const out = document.getElementById("out");
-
-  out.innerHTML = levels.map(x => {
-    let color =
-      x[0].startsWith("R") ? "#ff5252" :
-      x[0].startsWith("S") ? "#00c853" :
-      "#00e5ff";
-
-    return `
-      <tr>
-        <td style="color:${color}; font-weight:bold;">${x[0]}</td>
-        <td>${x[1].toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })}</td>
-      </tr>
-    `;
-  }).join("");
+  document.getElementById("out").innerHTML =
+    levels.map(x =>
+      `<tr><td class="level">${x[0]}</td><td>${x[1].toFixed(2)}</td></tr>`
+    ).join("");
 }
-</script>
