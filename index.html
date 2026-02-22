@@ -50,9 +50,14 @@ td {
 
 <script>
 function calc() {
-  const H = +high.value;
-  const L = +low.value;
-  const C = +close.value;
+  const H = parseFloat(high.value);
+const L = parseFloat(low.value);
+const C = parseFloat(close.value);
+
+if (isNaN(H) || isNaN(L) || isNaN(C)) {
+  alert("กรอกตัวเลข High / Low / Close ให้ครบ และห้ามมี ,");
+  return;
+}
 
   const P  = (H + L + C) / 3;
   const R1 = 2*P - L;
